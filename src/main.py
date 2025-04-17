@@ -4,6 +4,8 @@ from concurrent.futures import ThreadPoolExecutor
 from typing import List
 
 from src.log_parser import parse_log_file
+from src.reports.handlers import HandlersReport
+from src.formatter import format_report
 
 
 def main() -> None:
@@ -36,9 +38,9 @@ def main() -> None:
                 combined_stats[handler][level] = combined_stats[handler].get(level, 0) + count
 
     # Генерация и вывод отчёта
-    # report = HandlersReport()
-    # output = report.generate(combined_stats)
-    # print(format_report(output))
+    report = HandlersReport()
+    output = report.generate(combined_stats)
+    print(format_report(output))
 
 
 if __name__ == "__main__":
