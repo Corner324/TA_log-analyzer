@@ -134,7 +134,7 @@ HANDLER                DEBUG   INFO    WARNING ERROR   CRITICAL
 
 Уровень покрытия:
 
-![1744914620240](image/README/1744914620240.png)
+![1744914792110](image/README/1744914792110.png)
 
 ### Запуск тестов
 
@@ -221,4 +221,3 @@ make clean
 - **Зависимости**:
   - `pytest`, `pytest-cov` (для тестирования).
   - `flake8` (для линтинга).
-
