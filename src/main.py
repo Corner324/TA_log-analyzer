@@ -1,11 +1,11 @@
 import argparse
 import os
+import sys
 from concurrent.futures import ThreadPoolExecutor
 from typing import List
 
 from src.log_parser import parse_log_file
 from src.reports.handlers import HandlersReport
-from src.formatter import format_report
 
 
 def main() -> None:
@@ -18,11 +18,13 @@ def main() -> None:
     log_files: List[str] = args.log_files
     for log_file in log_files:
         if not os.path.exists(log_file):
-            raise FileNotFoundError(f"File {log_file} does not exist")
+            print(f"Error: File {log_file} does not exist", file=sys.stderr)
+            sys.exit(1)
 
     # Проверка отчёта
     if args.report != "handlers":
-        raise ValueError("Only 'handlers' report is supported")
+        print("Error: Invalid report name. Only 'handlers' is supported", file=sys.stderr)
+        sys.exit(1)
 
     # Параллельная обработка
     with ThreadPoolExecutor() as executor:
@@ -39,8 +41,8 @@ def main() -> None:
 
     # Генерация и вывод отчёта
     report = HandlersReport()
-    output = report.generate(combined_stats)
-    print(format_report(output))
+    output = report.generate(data=combined_stats)
+    print(output)
 
 
 if __name__ == "__main__":
